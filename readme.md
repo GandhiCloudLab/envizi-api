@@ -1,6 +1,6 @@
 # Exposing Envizi data for external systems by leveraging API 
 
-This article explains using Envizi API to explort the data
+This article explains about how to use Envizi API to export data from Envizi.
 
 #### Authors
  [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1), [Indira Kalagara](https://community.ibm.com/community/user/envirintel/people/indira-kumari-kalagara1)
@@ -10,7 +10,6 @@ Envizi provides the following 3 types of APIs to the user.
 2. Retrieve Report Parameters
 3. Retrieve Report Data
 
-
 ## API URL
 
 The root URL of the API would be the following.
@@ -18,8 +17,6 @@ The root URL of the API would be the following.
 - For Australia, New Zealand and ASEAN users - https://auapi.envizi.com/api
 - For US and Canada users - https://usapi.envizi.com/api
 - For UK and South African users - https://ukapi.envizi.com/api
-
-A valid Envizi user name and password must be supplied for authentication. 
 
 ## API Authentication
 
@@ -32,6 +29,10 @@ The API `meta` option allows the user get the list of API reports that are avail
 The API report names retrieved here to be used with all other meta and data API calls.
 
 
+#### Sample URL
+
+The sample url looks like this  https://ukapi.envizi.com/api/meta
+
 #### Sample Code
 
 Here is the sample code to pull the report names.
@@ -41,11 +42,11 @@ export API_USER=<<USER>>
 export API_PASSWORD=<<PASSWORD>>
 export API_REGION=<<REGION>>
 
+export API_SUFFIX=api.envizi.com/api
 export API_USER_PASSWORD="$API_USER:$API_PASSWORD"
-export API_URL=https://$API_REGION.envizi.com/api/meta
+export API_URL="https://$API_REGION$API_SUFFIX/meta"
 
 curl -u $API_USER_PASSWORD "$API_URL"
-
 ```
 
 - `<<USER>>` Envizi login id
@@ -54,7 +55,9 @@ curl -u $API_USER_PASSWORD "$API_URL"
 
 #### Sample Result
 
-The sample result of the above API would be like this [file](./files/meta.json).
+The sample result of the above API is given in this [meta.json](./files/data/meta.json) file. 
+
+The screenshot is available here.
 
 <img src="images/01-meta-1.png">
 <img src="images/01-meta-2.png">
@@ -62,20 +65,185 @@ The sample result of the above API would be like this [file](./files/meta.json).
 
 #### 2. Retrieve Report Parameters
 
-Similar to running report in Envizi's main user interface, with Envizi API you are able to specify report parameters, such as report ending period, location name etc. However there is no user interface in API to allow you to make such selections - the solution to this is to use the meta/reports/<API report name> API call.
+Envizi allows user to Retrieve report's data using API. User can able to specify report parameters, such as `report ending period`, `location name` etc while calling report's data API. 
 
-Unlike running reports from Envizi's main interface, in the API, for Envizi entities such as Location and Group, their exact Envizi Id must be specified in the API data call. The meta/reports/<API report name> call allows you to retrieve list of available parameter names and their ids in the specified report. These parameter names and ids can then be used in the actual API data calls later. 
+Envizi provides an API to retrieve list of available report parameter names and their ids for the specified report. 
 
-The /meta/reports/<API report name> allows you to see the following, provided they are applicable to the report:
+Let us see about how to retrieve report parameters.
+
+#### Sample URL
+
+The sample url looks like this  
+
+    https://ukapi.envizi.com/api/meta/reports/<<REPORT_NAME>
+
+    https://ukapi.envizi.com/api/meta/reports/_Envizi-SetupLocations
+
+#### Sample Code
+
+Here is the sample code to pull the report parameters.
+
+```
+export API_USER=<<USER>>
+export API_PASSWORD=<<PASSWORD>>
+export API_REGION=<<REGION>>
+
+export REPORT_NAME=_Envizi-SetupLocations
+
+export API_SUFFIX=api.envizi.com/api
+export API_USER_PASSWORD="$API_USER:$API_PASSWORD"
+export API_URL="https://$API_REGION$API_SUFFIX/meta/reports/$REPORT_NAME"
+
+curl -u $API_USER_PASSWORD "$API_URL" 
+
+```
+
+- REPORT_NAME : Any report name taken from the above retrieved [meta.json](./files/data/meta.json) file. Here we are using `_Envizi-SetupLocations` to get location parameters.
+
+#### Sample Result
+
+The sample result of the above API is given in this [report-parameters.json](./files/data/report-parameters.json) file. 
+
+There are 3 parameters (`Group_Id`, `Location_Id` `FilterBy`) and its valid values found for the given report.
+
+The screenshot with the important values can be found here.
+
+<img src="images/report-parameters.png">
+
+From this result we can use the Group `TurbonomicD1 > ONPREM-DataCenter` with `Group_Id = 5037106` as a report parameter for Reports Data api.
 
 ### Retrieve Report Data
-Once you have retrieved API report names through meta option, you can use the data option to retrieve the data. The naming convention for all Envizi supplied API reports is that they all start with '_Envizi', followed by a dash '-' and then the API report name, e.g., _Envizi-MonthlyDataSummary. 
+
+Envizi allows user to Retrieve report's data using API. You can pass report filter parameters along with API. 
+
+#### Sample URL
+
+The sample url looks like this  
+
+https://ukapi.envizi.com/api/data/<<REPORT_NAME>
+
+https://ukapi.envizi.com/api/data/_Envizi-SetupLocations
+
+
+
+https://ukapi.envizi.com/api/data/<<REPORT_NAME>>?<<PARAM_NAME1>>=<<PARAM_VALUE1>>
+
+
+https://ukapi.envizi.com/api/data/_Envizi-SetupLocations?Group_Id=12345
+
+
+#### Sample Code
+
+Here is the sample code to pull the report data.
+
+```
+export API_USER=<<USER>>
+export API_PASSWORD=<<PASSWORD>>
+export API_REGION=<<REGION>>
+
+export REPORT_NAME=_Envizi-SetupLocations
+export GROUP_ID=5037106
+
+export API_SUFFIX=api.envizi.com/api
+export API_USER_PASSWORD="$API_USER:$API_PASSWORD"
+export API_URL="https://$API_REGION$API_SUFFIX/data/$REPORT_NAME?Group_Id=$GROUP_ID"
+
+curl -u $API_USER_PASSWORD "$API_URL"
+```
+
+- REPORT_NAME : Name of the report for which we need to retrieve data. See [meta.json](./files/data/meta.json) file to view the list of report names. Here `_Envizi-SetupLocations` report is used.
+- GROUP_ID : To filter the report data based on the Group_Id. See [report-parameters.json](./files/data/report-parameters.json) file to view the list of available group id. Here `TurbonomicD1` > `ONPREM-DataCenter` subGroup is used.
+
+
+#### Sample Result
+
+The sample result of the above API is given in this [report-data.json](./files/data/report-data.json) file. 
+
+There are 3 locations (`HawthorneSales`, `UCS-DC-10.10.150.38` `vc03dc01`) found under the given group id.
+
+The screenshot with the important columns can be found here.
+
+<img src="images/report-data.png">
+
+- Location Name : Column shows the retrieved location.
+- Group Link : Column shows the `GROUP_ID=5037106` parameter that we passed in.
+- Group Name : Columns shows the `Group Name` equivalent of the GROUP_ID that we passed in.
+
+## 4. Scripts
+
+Shell scripts given to Retrieve report names, report params and report data as below.
+
+1. Download this github repo.
+
+2. Go to the [files/src](./files/src) folder in the command prompt.
+
+```
+cd files/src
+```
+
+#### 4.1 Update Config file
+
+1. Update the below properties in `config.sh`
+
+```
+### Envizi User Id
+export API_USER=
+
+### Envizi Password
+export API_PASSWORD=
+
+### Region (uk, au or us) based on the user region
+export API_REGION=
+```
+
+- API_USER : Envizi login id
+- API_PASSWORD :  Envizi password
+- API_REGION : The value would be `uk` , `au` or `us` based on the user region.
+
+#### 4.2 Retrieve Report Names
+
+1. Run the below script to retrieve the report names.
+```
+sh 01-meta.sh
+```
+
+- It would create a new folder with timestamp under [output](./files/src/output) folder.
+- In the new folder the `meta.json` file might have created.
+
+
+#### 4.3 Retrieve Report Parameters
+
+Here we are retrieving all the reports parameters one by one. 
+
+1. Run the below script. 
+
+```
+sh 02-report-param.sh
+```
+
+- It would create a new folder with timestamp under [output](./files/src/output) folder.
+- In the new folder bunch of json files get created.
+
+Note: This script takes time to execute based on the data available in the org. So few lines are commented in the script. You can uncomment and try.
+
+#### 4.4 Retrieve Report Data
+
+Here we are retrieving all the reports data one by one. 
+
+1. Run the below script 
+
+```
+sh 03-report-data.sh
+```
+- It would create a new folder with timestamp under [output](./files/src/output) folder.
+- In the new folder bunch of json files get created.
+
+Note: This script takes time to execute based on the data available in the org. So few lines are commented in the script. You can uncomment and try.
 
 ## Reference
 
 Envizi API Technical Documentation
 https://knowledgebase.envizi.com/home/envizi-api-technical-documentation
-
 
 
 #sustainability #envizi #API
