@@ -76,10 +76,6 @@ The parameters could be
 - End_Period : End period of the data. e.g. 2023/04/30
 - etc
 
-List of available reporting period, e.g. 1 month, 3 months and its default value
-Default value for reporting end period, e.g. 31-Dec-2018
-
-
 Let us see about how to retrieve report parameters.
 
 #### Sample URL
