@@ -1,4 +1,4 @@
-# Exposing Envizi data for external systems by leveraging API 
+# Exposing Envizi data to external systems by using API 
 
 This article explains about how to use Envizi API to export data from Envizi.
 
@@ -24,19 +24,20 @@ The Envizi API uses Basic Authentication method. You can use the existing Envizi
 
 ## 1. Retrieve Report Names
 
-The API `meta` option allows the user get the list of API reports that are available to this login. 
+The `meta` API option allows the user to get the list of reports available for data download via API for this user. 
 
-The API report names retrieved here to be used with all other meta and data API calls.
+The API report names retrieved here to be used with all other `report meta` and `data` API calls.
 
 
 #### Sample URL
 
-The sample url looks like this  
+The sample url looks like this
+    
     https://ukapi.envizi.com/api/meta
 
 #### Sample Code
 
-Here is the sample code to pull the report names.
+Here is the sample code using `meta` API to pull the report names.
 
 ```
 export API_USER=<<USER>>
@@ -50,23 +51,28 @@ export API_URL="https://$API_REGION$API_SUFFIX/meta"
 curl -u $API_USER_PASSWORD "$API_URL"
 ```
 
-- `<<USER>>` Envizi login id
-- `<<PASSWORD>>` Envizi password
-- `<<REGION>>` The value would be `uk` , `au` or `us` based on the user region.
+- `<<USER>>`    : Envizi login id
+- `<<PASSWORD>>`: Envizi password
+- `<<REGION>>`  : The value would be `uk` , `au` or `us` based on the user region.
 
-#### Sample Result
+#### Sample Output
 
-The sample result of the above API is given in this [meta.json](./files/data/meta.json) file. 
+The sample Output of the above API call is given in [meta.json](./files/data/meta.json) file. 
 
-The screenshot is available here.
+The important reports are highlighted here.
 
 <img src="images/meta.png">
 
 #### 2. Retrieve Report Parameters
 
-Envizi allows user to Retrieve report's data using API. User can able to specify report parameters, such as `report ending period`, `location name` etc while calling report's data API. 
+Envizi provides an `reports meta` API to retrieve the list of available Parameter Names and its Ids for the specified report. This helps the user to understand what parameters they can use to filter the report data while using API.
 
-Envizi provides an API to retrieve list of available report parameter names and their ids for the specified report. 
+The parameters could be 
+- Locations
+- Groups
+- Report start period
+- Report end Period
+- etc
 
 Let us see about how to retrieve report parameters.
 
@@ -75,12 +81,11 @@ Let us see about how to retrieve report parameters.
 The sample url looks like this  
 
     https://ukapi.envizi.com/api/meta/reports/<<REPORT_NAME>
-
     https://ukapi.envizi.com/api/meta/reports/_Envizi-SetupLocations
 
 #### Sample Code
 
-Here is the sample code to pull the report parameters.
+Here is the sample code using `report meta` API to pull the report parameters.
 
 ```
 export API_USER=<<USER>>
@@ -97,43 +102,41 @@ curl -u $API_USER_PASSWORD "$API_URL"
 
 ```
 
-- REPORT_NAME : Any report name taken from the above retrieved [meta.json](./files/data/meta.json) file. Here we are using `_Envizi-SetupLocations` to get location parameters.
+- REPORT_NAME
+    - Any report name taken from the previously retrieved [meta.json](./files/data/meta.json) file. 
+    - Here we are using `_Envizi-SetupLocations` to get location parameters.
 
-#### Sample Result
 
-The sample result of the above API is given in this [report-parameters.json](./files/data/report-parameters.json) file. 
+#### Sample Output
+
+The sample Output of the above API call is given in this [report-parameters.json](./files/data/report-parameters.json) file. 
+
+The screenshot of the above output with the important values can be found here.
 
 There are 3 parameters (`Group_Id`, `Location_Id` `FilterBy`) and its valid values found for the given report.
 
-The screenshot with the important values can be found here.
-
 <img src="images/report-parameters.png">
 
-From this result we can use the Group `TurbonomicD1 > ONPREM-DataCenter` with `Group_Id = 5037106` as a report parameter for Reports Data api.
+From this result we can use the Group `TurbonomicD1 > ONPREM-DataCenter` with `Group_Id = 5037106` as a report parameter for Reports Data API.
 
 ### Retrieve Report Data
 
-Envizi allows user to Retrieve report's data using API. You can pass report filter parameters along with API. 
+Envizi provides an `reports data` API to retrieve data from the given report. You can pass report filter parameters along with API to get filtered data. 
 
 #### Sample URL
 
 The sample url looks like this  
 
     https://ukapi.envizi.com/api/data/<<REPORT_NAME>
-
     https://ukapi.envizi.com/api/data/_Envizi-SetupLocations
 
-
-
     https://ukapi.envizi.com/api/data/<<REPORT_NAME>>?<<PARAM_NAME1>>=<<PARAM_VALUE1>>
-
-
     https://ukapi.envizi.com/api/data/_Envizi-SetupLocations?Group_Id=12345
 
 
 #### Sample Code
 
-Here is the sample code to pull the report data.
+Here is the sample code using `report data` API to pull the report data.
 
 ```
 export API_USER=<<USER>>
@@ -150,17 +153,23 @@ export API_URL="https://$API_REGION$API_SUFFIX/data/$REPORT_NAME?Group_Id=$GROUP
 curl -u $API_USER_PASSWORD "$API_URL"
 ```
 
-- REPORT_NAME : Name of the report for which we need to retrieve data. See [meta.json](./files/data/meta.json) file to view the list of report names. Here `_Envizi-SetupLocations` report is used.
-- GROUP_ID : To filter the report data based on the Group_Id. See [report-parameters.json](./files/data/report-parameters.json) file to view the list of available group id. Here `TurbonomicD1` > `ONPREM-DataCenter` subGroup is used.
+- REPORT_NAME
+    - Name of the report for which we need to retrieve data. 
+    - See [meta.json](./files/data/meta.json) file to view the list of report names. 
+    - Here `_Envizi-SetupLocations` report is used.
+- GROUP_ID
+    - To filter the report data based on the Group_Id. 
+    - See [report-parameters.json](./files/data/report-parameters.json) file to view the list of available group id. 
+    - Here `TurbonomicD1` > `ONPREM-DataCenter` subGroup is used.
 
 
-#### Sample Result
+#### Sample Output
 
-The sample result of the above API is given in this [report-data.json](./files/data/report-data.json) file. 
+The sample Output of the above API call is given in this [report-data.json](./files/data/report-data.json) file. 
+
+The screenshot of the above output with the important columns can be found here.
 
 There are 3 locations (`HawthorneSales`, `UCS-DC-10.10.150.38` `vc03dc01`) found under the given group id.
-
-The screenshot with the important columns can be found here.
 
 <img src="images/report-data.png">
 
@@ -170,7 +179,9 @@ The screenshot with the important columns can be found here.
 
 ## 4. Scripts
 
-Shell scripts given to Retrieve report names, report params and report data as below.
+Here Shell scripts are given to Retrieve report names, all the report params and all the report data using APIs .
+
+Here are the steps to execute the script if needed.
 
 1. Download this github repo.
 
