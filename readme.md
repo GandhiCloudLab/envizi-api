@@ -26,7 +26,7 @@ The Envizi API uses Basic Authentication method. You can use the existing Envizi
 
 The `meta` API option allows the user to get the list of reports available for data download via API for this user. 
 
-The API report names retrieved here to be used with all other `report meta` and `data` API calls.
+The report names retrieved here to be used with all other `report meta` and `data` API calls.
 
 
 #### Sample URL
