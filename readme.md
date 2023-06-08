@@ -31,7 +31,8 @@ The API report names retrieved here to be used with all other meta and data API 
 
 #### Sample URL
 
-The sample url looks like this  https://ukapi.envizi.com/api/meta
+The sample url looks like this  
+    https://ukapi.envizi.com/api/meta
 
 #### Sample Code
 
@@ -59,9 +60,7 @@ The sample result of the above API is given in this [meta.json](./files/data/met
 
 The screenshot is available here.
 
-<img src="images/01-meta-1.png">
-<img src="images/01-meta-2.png">
-
+<img src="images/meta.png">
 
 #### 2. Retrieve Report Parameters
 
@@ -120,16 +119,16 @@ Envizi allows user to Retrieve report's data using API. You can pass report filt
 
 The sample url looks like this  
 
-https://ukapi.envizi.com/api/data/<<REPORT_NAME>
+    https://ukapi.envizi.com/api/data/<<REPORT_NAME>
 
-https://ukapi.envizi.com/api/data/_Envizi-SetupLocations
-
-
-
-https://ukapi.envizi.com/api/data/<<REPORT_NAME>>?<<PARAM_NAME1>>=<<PARAM_VALUE1>>
+    https://ukapi.envizi.com/api/data/_Envizi-SetupLocations
 
 
-https://ukapi.envizi.com/api/data/_Envizi-SetupLocations?Group_Id=12345
+
+    https://ukapi.envizi.com/api/data/<<REPORT_NAME>>?<<PARAM_NAME1>>=<<PARAM_VALUE1>>
+
+
+    https://ukapi.envizi.com/api/data/_Envizi-SetupLocations?Group_Id=12345
 
 
 #### Sample Code
