@@ -72,7 +72,7 @@ The parameters could be
 - Location_Id
 - Utility_Type_Id
 - Currency_Id
-- Period : How many months of data from the given end Period.  Ex: 1, 2, ... 60 months.
+- Period : How many months of data from the given end Period.  e.g. : 1, 3, 6, 9, 12, 24, 36, 48, 60 months.
 - End_Period : End period of the data. e.g. 2023/04/30
 - etc
 
