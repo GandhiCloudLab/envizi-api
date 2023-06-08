@@ -68,11 +68,17 @@ The important reports are highlighted here.
 Envizi provides an `reports meta` API to retrieve the list of available Parameter Names and its Ids for the specified report. This helps the user to understand what parameters they can use to filter the report data while using API.
 
 The parameters could be 
-- Locations
-- Groups
-- Report start period
-- Report end Period
+- Group_Id
+- Location_Id
+- Utility_Type_Id
+- Currency_Id
+- Period : How many months of data from the given end Period.  Ex: 1, 2, ... 60 months.
+- End_Period : End period of the data. e.g. 2023/04/30
 - etc
+
+List of available reporting period, e.g. 1 month, 3 months and its default value
+Default value for reporting end period, e.g. 31-Dec-2018
+
 
 Let us see about how to retrieve report parameters.
 
@@ -113,11 +119,9 @@ The sample Output of the above API call is given in this [report-parameters.json
 
 The screenshot of the above output with the important values can be found here.
 
-There are 3 parameters (`Group_Id`, `Location_Id` `FilterBy`) and its valid values found for the given report.
+There are 3 parameters (`Group_Id`, `Location_Id` `Filter_By`) and its available values found for the given report.
 
 <img src="images/report-parameters.png">
-
-From this result we can use the Group `TurbonomicD1 > ONPREM-DataCenter` with `Group_Id = 5037106` as a report parameter for Reports Data API.
 
 ### Retrieve Report Data
 
@@ -125,18 +129,27 @@ Envizi provides an `reports data` API to retrieve data from the given report. Yo
 
 #### Sample URL
 
-The sample url looks like this  
+The sample url looks like this.
+
+1. Without Parameters
 
     https://ukapi.envizi.com/api/data/<<REPORT_NAME>
     https://ukapi.envizi.com/api/data/_Envizi-SetupLocations
 
+2. With Group_Id Parameter
+
     https://ukapi.envizi.com/api/data/<<REPORT_NAME>>?<<PARAM_NAME1>>=<<PARAM_VALUE1>>
     https://ukapi.envizi.com/api/data/_Envizi-SetupLocations?Group_Id=12345
+
+3. With Period, End_Period, and Location_Id Parameters
+
+    https://ukapi.envizi.com/api/data/_Envizi-MonthlyDataSummary?Period=1&End_Period=2023/03/31&Location_Id=5003114
 
 
 #### Sample Code
 
 Here is the sample code using `report data` API to pull the report data.
+
 
 ```
 export API_USER=<<USER>>
