@@ -133,17 +133,23 @@ The sample url looks like this.
 
 1. Without Parameters
 
+```
     https://ukapi.envizi.com/api/data/<<REPORT_NAME>
     https://ukapi.envizi.com/api/data/_Envizi-SetupLocations
+```
 
 2. With Group_Id Parameter
 
+```
     https://ukapi.envizi.com/api/data/<<REPORT_NAME>>?<<PARAM_NAME1>>=<<PARAM_VALUE1>>
     https://ukapi.envizi.com/api/data/_Envizi-SetupLocations?Group_Id=12345
+```
 
 3. With Period, End_Period, and Location_Id Parameters
 
+```
     https://ukapi.envizi.com/api/data/_Envizi-MonthlyDataSummary?Period=1&End_Period=2023/03/31&Location_Id=5003114
+```
 
 
 #### Sample Code
