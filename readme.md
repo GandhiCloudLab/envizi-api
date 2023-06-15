@@ -1,16 +1,33 @@
 # Exposing Envizi data to external systems by using API 
 
-This article explains about how to use Envizi API to export data from Envizi.
-
 #### Authors
  [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1), [Indira Kalagara](https://community.ibm.com/community/user/envirintel/people/indira-kumari-kalagara1)
+
+## 1. Introduction
+
+The objective of this article is to help the Envizi users to understand about Envizi APIs. This helps the user to learn about the different APIs available in Envizi and how to use them to get the data from Envizi to feed into the external systems..
 
 Envizi provides the following 3 types of APIs to the user.
 1. Retrieve Report Names
 2. Retrieve Report Parameters
 3. Retrieve Report Data
 
-## API URL
+## 2. Prerequisites
+
+To try the instructions given in this article, it is required to have an access to the IBM Envizi ESG Suite. But this is not mandatory to have an access.
+
+Here is the link to the Trials.
+
+Start your 14-day IBM Envizi ESG Suite trial
+https://www.ibm.com/account/reg/us-en/signup?formid=urx-51938
+
+## 3. Estimated time
+
+This article requires 60 minutes to complete the reading.
+
+## 4. Body
+
+### 4.1 API URL
 
 The root URL of the API would be the following.
 
@@ -18,11 +35,11 @@ The root URL of the API would be the following.
 - For US and Canada users - https://usapi.envizi.com/api
 - For UK and South African users - https://ukapi.envizi.com/api
 
-## API Authentication
+## 4.2 API Authentication
 
 The Envizi API uses Basic Authentication method. You can use the existing Envizi login and password for the API Authentication. 
 
-## 1. Retrieve Report Names
+## 4.3 Retrieve Report Names
 
 The `meta` API option allows the user to get the list of reports available for data download via API for this user. 
 
@@ -63,7 +80,7 @@ The important reports are highlighted here.
 
 <img src="images/meta.png">
 
-#### 2. Retrieve Report Parameters
+## 4.4 Retrieve Report Parameters
 
 Envizi provides an `reports meta` API to retrieve the list of available Parameter Names and its Ids for the specified report. This helps the user to understand what parameters they can use to filter the report data while using API.
 
@@ -72,7 +89,7 @@ The parameters could be
 - Location_Id
 - Utility_Type_Id
 - Currency_Id
-- Period : How many months of data from the given end Period.  e.g. : 1, 3, 6, 9, 12, 24, 36, 48, 60 months.
+- Period : { 1, 3, 6, 9, 12, 24, 36, 48, 60} - How many months of data from the given end Period.
 - End_Period : End period of the data. e.g. 2023/04/30
 - etc
 
@@ -119,7 +136,7 @@ There are 3 parameters (`Group_Id`, `Location_Id` `Filter_By`) and its available
 
 <img src="images/report-parameters.png">
 
-### Retrieve Report Data
+## 4.5 Retrieve Report Data
 
 Envizi provides an `reports data` API to retrieve data from the given report. You can pass report filter parameters along with API to get filtered data. 
 
@@ -192,7 +209,7 @@ There are 3 locations (`HawthorneSales`, `UCS-DC-10.10.150.38` `vc03dc01`) found
 - Group Link : Column shows the `GROUP_ID=5037106` parameter that we passed in.
 - Group Name : Columns shows the `Group Name` equivalent of the GROUP_ID that we passed in.
 
-## 4. Scripts
+## 4.6 Scripts
 
 Here Shell scripts are given to Retrieve report names, all the report params and all the report data using APIs .
 
@@ -206,7 +223,7 @@ Here are the steps to execute the script if needed.
 cd files/src
 ```
 
-#### 4.1 Update Config file
+#### 4.6.1 Update Config file
 
 1. Update the below properties in `config.sh`
 
@@ -225,7 +242,7 @@ export API_REGION=
 - API_PASSWORD :  Envizi password
 - API_REGION : The value would be `uk` , `au` or `us` based on the user region.
 
-#### 4.2 Retrieve Report Names
+#### 4.6.2 Retrieve Report Names
 
 1. Run the below script to retrieve the report names.
 ```
@@ -236,7 +253,7 @@ sh 01-meta.sh
 - In the new folder the `meta.json` file might have created.
 
 
-#### 4.3 Retrieve Report Parameters
+#### 4.6.3 Retrieve Report Parameters
 
 Here we are retrieving all the reports parameters one by one. 
 
@@ -251,7 +268,7 @@ sh 02-report-param.sh
 
 Note: This script takes time to execute based on the data available in the org. So few lines are commented in the script. You can uncomment and try.
 
-#### 4.4 Retrieve Report Data
+#### 4.6.4 Retrieve Report Data
 
 Here we are retrieving all the reports data one by one. 
 
@@ -265,10 +282,31 @@ sh 03-report-data.sh
 
 Note: This script takes time to execute based on the data available in the org. So few lines are commented in the script. You can uncomment and try.
 
-## Reference
+
+## 5. Summary
+
+As an Envizi user, you might have understood about how to use APIs and what are the different reports data available in Envizi. 
+
+
+State any closing remarks about the task or goal you described and its importance. Reiterate specific benefits the reader can expect from completing your tutorial.
+Next steps
+Recommend a next step (with a link) where they can continue to expand their skills after completing your tutorial.
+
+
+## 6. Next steps
+
+The next step is to Get a closer look at IBM Envizi and how it can help accelerate your ESG strategy.
+
+Start your 14-day IBM Envizi ESG Suite trial
+https://www.ibm.com/account/reg/us-en/signup?formid=urx-51938
+
+Request your personalized IBM Envizi demo
+https://www.ibm.com/account/reg/us-en/signup?formid=DEMO-envizi
+
+
+## 7. Reference
 
 Envizi API Technical Documentation
 https://knowledgebase.envizi.com/home/envizi-api-technical-documentation
-
 
 #sustainability #envizi #API
