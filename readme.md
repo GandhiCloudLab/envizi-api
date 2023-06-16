@@ -1,8 +1,5 @@
 # Exposing Envizi data to external systems by using API 
 
-#### Authors
- [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1), [Indira Kalagara](https://community.ibm.com/community/user/envirintel/people/indira-kumari-kalagara1)
-
 ## 1. Introduction
 
 The objective of this article is to help the Envizi users to understand about Envizi APIs. This helps the user to learn about the different APIs available in Envizi and how to use them to get the data from Envizi to feed into the external systems..
@@ -14,12 +11,7 @@ Envizi provides the following 3 types of APIs to the user.
 
 ## 2. Prerequisites
 
-To try the instructions given in this article, it is required to have an access to the IBM Envizi ESG Suite. But this is not mandatory to have an access.
-
-Here is the link to the Trials.
-
-Start your 14-day IBM Envizi ESG Suite trial
-https://www.ibm.com/account/reg/us-en/signup?formid=urx-51938
+To try the instructions given in this article, it is required to have an access to the IBM Envizi ESG Suite.
 
 ## 3. Estimated time
 
@@ -56,11 +48,14 @@ The sample url looks like this
 
 Here is the sample code using `meta` API to pull the report names.
 
+
 ```
 export API_USER=<<USER>>
 export API_PASSWORD=<<PASSWORD>>
 export API_REGION=<<REGION>>
+```
 
+```
 export API_SUFFIX=api.envizi.com/api
 export API_USER_PASSWORD="$API_USER:$API_PASSWORD"
 export API_URL="https://$API_REGION$API_SUFFIX/meta"
@@ -106,11 +101,14 @@ The sample url looks like this
 
 Here is the sample code using `report meta` API to pull the report parameters.
 
+
 ```
 export API_USER=<<USER>>
 export API_PASSWORD=<<PASSWORD>>
 export API_REGION=<<REGION>>
+```
 
+```
 export REPORT_NAME=_Envizi-SetupLocations
 
 export API_SUFFIX=api.envizi.com/api
@@ -170,11 +168,14 @@ The sample url looks like this.
 Here is the sample code using `report data` API to pull the report data.
 
 
+
 ```
 export API_USER=<<USER>>
 export API_PASSWORD=<<PASSWORD>>
 export API_REGION=<<REGION>>
+```
 
+```
 export REPORT_NAME=_Envizi-SetupLocations
 export GROUP_ID=5037106
 
@@ -310,3 +311,6 @@ Envizi API Technical Documentation
 https://knowledgebase.envizi.com/home/envizi-api-technical-documentation
 
 #sustainability #envizi #API
+
+## Authors
+ [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1), [Indira Kalagara](https://community.ibm.com/community/user/envirintel/people/indira-kumari-kalagara1)
